@@ -16,7 +16,7 @@ const upload = multer({ storage: storage });
 const config = {
   user: 'sa',
   password: '20p256',
-  server: '192.168.43.44',
+  server: 'LAPTOP-RVD8BNNA\\SQLEXPRESS',
   database: 'vanaspatigrahah',
   options: {
     encrypt: false,
@@ -106,6 +106,19 @@ app.get('/api/manure', async (req, res) => {
   try {
     await sql.connect(config);
     const result = await sql.query('SELECT * FROM dbo.manuremaster');
+    res.json(result.recordset); // Send manure data as response
+  } catch (err) {
+    console.error('Error fetching manure data:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+app.get('/api/mfps', async (req, res) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query('SELECT * FROM dbo.mfp');
     res.json(result.recordset); // Send manure data as response
   } catch (err) {
     console.error('Error fetching manure data:', err);
