@@ -38,8 +38,8 @@ app.post('/api/save-bill', async (req, res) => {
     await sql.connect(config);
     const request = new sql.Request();
     await request.query(`
-      INSERT INTO gold_summary (weight, less_weight, amount)
-      VALUES ('${weight}', '${lessWeight}', ${rate})
+      INSERT INTO gold_summary (date, weight, less_weight, amount)
+      VALUES (GETDATE(), '${weight}', '${lessWeight}', ${rate})
     `);
 
     res.status(200).json({ message: 'Bill saved to database.' });
